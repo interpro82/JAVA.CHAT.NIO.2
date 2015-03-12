@@ -7,12 +7,14 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import static java.nio.charset.StandardCharsets.*;
+
 /**
  * @author Iliya Nikolov
  * The class is started form the ServerManager.
  * It listens for new user connections to the server and adds them to the Server's user list.
  */
-public class ServerListener extends Thread {
+class ServerListener extends Thread {
 	
 	private String host_Adress;
 	private int port;
@@ -58,7 +60,7 @@ public class ServerListener extends Thread {
 			Thread.sleep(100);//waits for the nickName to arrive 
 		}	
 		newUser.getBuffer().flip();
-		String userName = new String(newUser.getBuffer().array()).trim();
+		String userName = new String(newUser.getBuffer().array(), UTF_8).trim();
 		System.out.println(userName + " is connected");
 		newUser.setNickName(userName);
 		newUser.getBuffer().clear();

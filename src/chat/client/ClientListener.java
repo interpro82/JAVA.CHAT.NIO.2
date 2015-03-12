@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ClientListener extends Thread {
+class ClientListener extends Thread {
 	
 	ClientListener(){}
 	
@@ -19,7 +19,7 @@ public class ClientListener extends Thread {
 				while (readResult.isDone()){ //waits until message has arrived or connection is lost 
 					if (!ClientManager.getClient().isOpen()) {
 						try {
-							Thread.sleep(1000); //wait to check if the channel is not temporary closed
+							Thread.sleep(100); //wait to check if the channel is not temporary closed
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -54,7 +54,7 @@ public class ClientListener extends Thread {
 						}	
 				}
 				try {
-					Thread.sleep(500);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

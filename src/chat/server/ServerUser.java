@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.util.concurrent.Future;
 
-public class ServerUser extends Thread{
+class ServerUser extends Thread{
 	
 	private AsynchronousSocketChannel clientChannel;
 	private String nickName;

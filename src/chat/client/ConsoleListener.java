@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ConsoleListener extends Thread {
+class ConsoleListener extends Thread {
 
 	private static ConsoleListener instance;
 	private static String command = "";
@@ -55,7 +55,7 @@ public class ConsoleListener extends Thread {
 			e1.printStackTrace();
 		}
 		ByteBuffer buffer = ByteBuffer.wrap(byteMessage);
-		System.out.println(buffer.capacity());
+		System.out.println("Message size is: " + buffer.capacity() + " bytes." );
 		Future<Integer> result = ClientManager.getClient().write(buffer);
 		try {
 			if ( result.get().intValue() == -1 ){

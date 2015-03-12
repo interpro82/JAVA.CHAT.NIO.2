@@ -13,7 +13,7 @@ import chat.client.Message;
  * Uses ServerManager's userList to know what users are connected.
  * adds received messages to MessageManager's message list.
  */
-public class MessageReciever extends Thread {
+class MessageReciever extends Thread {
 	
 	private static MessageReciever instance = null;
 	

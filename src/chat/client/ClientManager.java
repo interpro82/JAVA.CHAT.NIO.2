@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -31,7 +32,7 @@ public class ClientManager {
 		Future<Void> future = client.connect(hostAddress);
 		future.get(); // waits until is connected
 		System.out.println("Client is started: " + client.isOpen());
-		byte [] byteMessage = Constants.NICK_NAME.getBytes();
+		byte [] byteMessage = Constants.NICK_NAME.getBytes(StandardCharsets.UTF_8);
 		ByteBuffer buffer = ByteBuffer.wrap(byteMessage);
 		Future<Integer> writeResult = client.write(buffer);
 		while (!writeResult.isDone()) {}	//waits until NICK_NAME is sent to the server	
@@ -64,7 +65,7 @@ public class ClientManager {
 				ConsoleListener.setCommand("");
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

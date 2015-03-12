@@ -2,12 +2,14 @@ package chat.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 import chat.client.Message;
 
-public class MessageManager extends Thread {
+class MessageManager extends Thread {
 	
 	private static MessageManager instance = null;
 	private static Vector<Message> messageList = null;
@@ -78,18 +80,22 @@ public class MessageManager extends Thread {
 					for (ServerUser user : tempUserList){
 						if (user.getNickName().equals(message.getReciever())){
 							String sender = message.getSender() + " wrote: ";
-							sendMessageToUser(user.getClientChannel(), sender);
-							String textMessage = message.getText();
+							String textMessage = sender + message.getText();
 							sendMessageToUser(user.getClientChannel(), textMessage);
+							System.out.println("sent message " + textMessage + " to user" + message.getSender());
+							try {
+								MySqlHistory.insertQuery(message.getSender(), message.getReciever(), textMessage);
+								SQLiteHistory.insertQuery(message.getSender(), message.getReciever(), textMessage);
+							} catch (SQLException | ClassNotFoundException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 					removeMessageAt(index);
 					index++;
 				}
-			}
-			
+			}	
 		}
-		
 	}
 	
 	public void run(){

@@ -1,6 +1,6 @@
 package chat.client;
 
-class Constants {
+public class Constants {
 		
 	static final String HOST_ADRESS = "localhost";
 	static final int LISTENING_PORT = 4444;

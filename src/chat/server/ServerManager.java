@@ -16,12 +16,11 @@ public class ServerManager {
 		MessageManager messageManager = MessageManager.getInstance();
 		serverListener.start();
 		messageManager.start();
-		while (true) {
-			try {
-				Thread.sleep(5*1000);
-			} catch (InterruptedException e) {
+		try {
+			serverListener.join();
+			messageManager.join();
+		} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
 		}
 	}
 }
